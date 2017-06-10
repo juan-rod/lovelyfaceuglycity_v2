@@ -3,7 +3,7 @@
 	  <div class="column">
 	    <h2 class="ui orange header">
 	      <div class="content">
-	        #Tuto:: Slack
+	        U G L Y : : C I T Y
 	      </div>
 	    </h2>
 	    <form class="ui large form" :class="{'error': hasErrors}">

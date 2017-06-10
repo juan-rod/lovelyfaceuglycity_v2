@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import firebase from 'firebase'
+import VueMaterial from 'vue-material';
 import Login from './pages/Login.vue'
 import Register from './pages/Register.vue'
 import Home from './pages/Home.vue'
@@ -10,6 +11,7 @@ import store from './store/store.js'
 
 
 Vue.use(VueRouter)
+Vue.use(VueMaterial);
 
 const routes = [
 	{

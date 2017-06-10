@@ -1,16 +1,16 @@
 <template>
   <div class="admin_container">
-  	<!-- <sidebar></sidebar>
-  	<messages></messages> -->
+  	<!-- <sidebar></sidebar> -->
+  	<image-form></image-form>
   </div>
 </template>
 
 <script>
 // import Sidebar from "../components/sidebar/Sidebar.vue";
-// import Messages from "../components/messages/Messages.vue";
+import ImageForm from "../components/admin/ImageForm.vue";
 export default {
 	name: 'admin',
-	// components: {Sidebar, Messages},
+	components: {ImageForm},
 	data () {
 		return {
 		}
