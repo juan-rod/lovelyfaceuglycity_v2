@@ -1,16 +1,16 @@
 <template>
   <div class="home_container">
-  	<!-- <sidebar></sidebar>
-  	<messages></messages> -->
+  	<sidebar></sidebar>
+  	<image-feed></image-feed>
   </div>
 </template>
 
 <script>
-// import Sidebar from "../components/sidebar/Sidebar.vue";
-// import Messages from "../components/messages/Messages.vue";
+import Sidebar from "../components/sidebar/Sidebar.vue";
+import ImageFeed from "../components/mainfeed/ImageFeed.vue";
 export default {
 	name: 'home',
-	// components: {Sidebar, Messages},
+	components: {Sidebar, ImageFeed},
 	data () {
 		return {
 		}

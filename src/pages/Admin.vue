@@ -19,7 +19,8 @@ export default {
 </script>
 
 <style scoped>
-	.home_container{
+	.admin_container{
 		height: 100%;
+		width: 100%;
 	}
 </style>

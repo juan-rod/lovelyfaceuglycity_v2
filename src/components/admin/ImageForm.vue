@@ -6,22 +6,22 @@
 	<md-input-container>
 	    <md-icon>create</md-icon>
 	    <label>Title</label>
-	    <md-input type="text" v-model.trim="travelCard.pTitle"></md-input>
+	    <md-input type="text" v-model.trim="imageCard.title"></md-input>
 	</md-input-container>
 	<md-input-container>
 	    <md-icon>view_headline</md-icon>
 	    <label>Description</label>
-	    <md-input type="text" v-model.trim="travelCard.desc"></md-input>
+	    <md-input type="text" v-model.trim="imageCard.desc"></md-input>
 	</md-input-container>
 	<md-input-container>
 	    <md-icon>label</md-icon>
 	    <label>Location</label>
-	    <md-input type="text" v-model.trim="travelCard.location"></md-input>
+	    <md-input type="text" v-model.trim="imageCard.location"></md-input>
 	</md-input-container>
 	
-	<upload-file></upload-file>
+	<upload-file :imageCard="imageCard" ref="upload_file"></upload-file>
 
-	<md-button type="submit" class="md-raised md-primary">Add #{{ travels.length }}</md-button>
+	<md-button type="submit" class="md-raised md-primary">Add #{{ imageCards.length }}</md-button>
   </div>
 </template>
 
@@ -29,38 +29,90 @@
 import { mapGetters } from 'vuex'
 import UploadFile from './UploadFile.vue'
 import uuidV4 from 'uuid/V4'
+import moment from 'moment'
 
 export default {
 	name: 'image-form',
 	components: { UploadFile },
 	data () {
 		return {
-			travelCard :{
+			imageCard :{
 				title: '',
 				desc: '',
 				location: ''
 			},
-			travels:{},
+			imageCards:{},
 			errors: [],
 	        storageRef: firebase.storage().ref(),
-	        travelRef: firebase.storage().ref('travels'),
+	        imageCardRef: firebase.database().ref('imageCard'),
+            privateImageCardRef: firebase.database().ref('privateImageCard'),
+            searchRef: firebase.database().ref('searchItem'),
 	        uploadTask: null,
-	        uploadState: null
+	        uploadState: null,
+	        firstLoad: true,
+	        searchItem:[],
+	        new_searchItem: '',
+			search: null,
+            thisMonth : moment().get('month')
 		}
 	},
 	computed: {
-		...mapGetters(['currentChannel', 'currentUser', 'isPrivate'])
+		...mapGetters(['currentSearchItem', 'currentUser', 'isPrivate'])
 	},
+	 mounted () {
+    	this.addListeners()
+        // this.addSearchItem()
+    },
 	methods: {
-		sendImageForm () {
-			if(this.currentChannel !== null){
-				if(this.travelCard.length > 0){
-					this.$parent
+		addListeners () {
+            this.searchRef.on('child_added', snap => {
+                console.log("snap:",snap);
+    			this.searchItem.push(snap.val())
+                let monthName = snap.val().name
+                let searchMonth = moment().month(this.thisMonth).format('MMM')
+                if(searchMonth !== monthName){
+                    this.addSearchItem()
+                }
+
+                if(this.firstLoad && this.searchItem.length > 0){
+                    console.log("this.searchItem[0]:",this.searchItem[0])
+                    this.$store.dispatch("setCurrentSearchItem", this.searchItem[0])
+                    this.search = this.searchItem[0]
+                    console.log("this.search:",this.search);
+                }
+                this.firstLoad = false
+            })
+        },
+        addSearchItem () {
+            // this.errors = []
+            let key = this.searchRef.push().key
+            let newSearchItem = { id: key, name: searchMonth}
+            console.log("newSearchItem:",newSearchItem);
+            this.searchRef.child(key).update(newSearchItem).then( () => {
+                // this.new_searchItem = ''
+                // $("#searchItemModal").modal('hide')                 
+            }).catch( error => {
+                this.errors.push(error.message)
+            })
+                
+            
+        },
+		sendImageCard () {
+			if(this.currentSearchItem !== null){
+				if(this.imageCard.length > 0){
+					this.$parent.getImageRef().child(this.currentSearchItem.id).push().set(this.createImageCard()).then( () => {
+
+					}).catch(error => {
+						this.errors.push(error.message)
+					})
+					this.imageCard = ""
 				}
+			}else{
+				console.log("this.currentSearchItem === null:",this.currentSearchItem);
 			}
 		},
-		createImageForm (fileUrl = null) {
-			let travelCard = {
+		createImageCard (fileUrl = null) {
+			let imageCard = {
 				timestamp : firebase.database.ServerValue.TIMESTAMP,
 				user: {
 					name:this.currentUser.displayName,
@@ -69,14 +121,83 @@ export default {
 				}
 			}
 			if(fileUrl != null){
-				travelCard['image'] = fileUrl
+				imageCard['image'] = fileUrl
 			}else{
-				travelCard['content'] = this.travelCard
+				imageCard['content'] = this.imageCard
 			}
-			return travelCard
-		}
+			console.log("imageCard:",imageCard);
+			return imageCard
+		},
+		uploadFile(file, metadata) {
+			if(file === null) return false
+			console.log("file:",file);
+			console.log("metadata:",metadata);
+			console.log("this.currentSearchItem:",this.currentSearchItem);
+			// if(this.currentSearchItem.id === null){
+			// 	this.searchRef.on('child_added', snap => {
+			// 		let id = snap.val().id
+			// 			console.log("pathToUpload:",pathToUpload);
+			// 	})
+			// }
+					let pathToUpload = this.currentSearchItem.id
+			// let pathToUpload = this.imageCard
+			let ref = this.getImageRef()
+			let filePath = this.getPath() + '/' + uuidV4() 
 		
-	}
+
+			//upload file
+
+			this.uploadTask = this.storageRef.child(filePath).put(file, metadata)
+			this.uploadState = 'uploading'
+			this.uploadTask.on('state_changed', snap => {
+				let percent = (snap.bytesTransferred / snap.totalBytes) * 100
+                  $("#uploadedFile").progress("set percent", percent)
+			}, error => {
+				this.errors.push(error.message)
+                this.uploadState = 'error'
+                this.uploadTask = null
+			}, () => {
+				this.uploadState = 'done'
+	            this.$refs.upload_file.resetForm()
+	            //Retrieving the file url
+	            let fileUrl = this.uploadTask.snapshot.downloadURL
+	            this.sendFileImage(fileUrl, ref, pathToUpload)
+			})
+		},
+		sendFileImage(fileUrl, ref, pathToUpload){
+			console.log("fileUrl:",fileUrl);
+			console.log("ref:",ref);
+			console.log("pathToUpload:",pathToUpload);
+                
+	        ref.child(pathToUpload).push().set(this.createImageCard(fileUrl)).then( () => {
+	            this.$nextTick(() => {
+	                $("html, body").scrollTop($(document).height())
+	            })
+	        }).catch( error => {
+	            this.errors.push(error.message)
+	        })
+	    },
+	    getPath() {
+          	if(this.isPrivate){
+            	return 'tchat/private/'+this.currentChannel.id
+          	}else{
+            	return 'tchat/public'
+          	}
+      	},
+      	getImageRef () {
+            if(this.isPrivate){
+                return this.privateImageCardRef
+            }else{
+                return this.imageCardRef
+            }
+        }    
+	},
+	beforeDestroy () {
+      	if(this.uploadTask !== null){
+          this.uploadTask.cancel()
+          this.uploadTask = null
+      	}
+  	}
 }
 </script>
 

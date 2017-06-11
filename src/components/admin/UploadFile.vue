@@ -1,20 +1,20 @@
 <template>
-	<!-- <div class="ui modal" id="fileModal">
-    	<i class="close icon"></i>
-        <div class="header">
-            Send a File
-        </div>
-        <div class="content">
-            <div class="description">
-                <div class="ui header">Choose a file <em>( jpg, png, 1 mb max )</em></div>
-                <form class="ui form" id="form">
-                    <div class="field">
-                        <input type="file" name="file" id="file" @change="addFile">
-                    </div>
-                </form>
-
+	<div>
+        <!-- <md-input-container>
+          <md-icon>add_a_photo</md-icon>
+          <label>Upload Image</label> -->
+          <!-- <md-file 
+            multiple 
+            v-model="imageCard.image"
+            accept="image/*"
+            @change="addFile" >
+          </md-file> -->
+          <form class="ui form" id="form">
+            <div class="field">
+                <input type="file" name="file" id="file" @change="addFile">
             </div>
-        </div>
+        </form>
+        <!-- </md-input-container> -->
         <div class="actions">
             <div class="ui black deny button">
                Cancel
@@ -24,16 +24,7 @@
                 <i class="checkmark icon"></i>
             </div>
         </div>
-    </div> -->
-
-    <md-input-container>
-      <md-icon>add_a_photo</md-icon>
-      <label>Upload Image</label>
-      <md-file 
-        multiple 
-        accept="image/*" >
-      </md-file>
-    </md-input-container>
+    </div> 
 </template>
 
 
@@ -41,10 +32,11 @@
     import mime from 'mime-types'
     export default {
         name: 'upload-file',
+        props: ['imageCard'],
         data () {
             return {
                 file: null,
-                authorized: ['image/jpeg', 'image/png']
+                authorized: ['image/jpeg', 'image/png','image/gif']
             }
         },
         methods : {
@@ -61,7 +53,7 @@
                     if(this.isValid(this.file.name)){
                         let metadata = { contentType: mime.lookup(this.file.name)}
                         this.$parent.uploadFile(this.file, metadata)
-                        $("#fileModal").modal('hide')
+                        // $("#fileModal").modal('hide')
                     }
                 }
             },
