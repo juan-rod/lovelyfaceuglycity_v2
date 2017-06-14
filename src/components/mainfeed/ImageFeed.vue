@@ -4,7 +4,7 @@
             <h2>month</h2>
             <div class="imageFeed">
                 <transition-group tag="div" name="list">
-                    <image-card :image="image" v-for="image in images" :key="image.id"></image-card>
+                    <image-card :imageCard="imageCard" v-for="imageCard in imageCards" :key="imageCard.id"></image-card>
                 </transition-group>
             </div>
         </div>
@@ -21,7 +21,8 @@
             return {
                 imageCardRef: firebase.database().ref('imageCard'),
                 privateImageCardRef: firebase.database().ref('privateImageCard'),
-                images: [],
+                searchRef: firebase.database().ref('searchItem'),
+                imageCards: [],
                 listeners: []
 
             }
@@ -30,17 +31,27 @@
             ...mapGetters(['currentSearchItem', 'isPrivate', 'currentUser'])
         },
         watch: {
-            // this.detachListeners()
-            // this.addListeners()
+            currentSearchItem () {
+                this.detachListeners()
+                this.addListeners()
+            }
 
         },
+        // mounted () {
+        //     this.addListeners()
+        // },
         methods: {
             addListeners () {
+                // this.searchRef.on('child_added', snap => {
+                //     console.log(" sesnap.val():",snap.val())
+                    
+                // })
                 let ref = this.getImageRef()
                 ref.child(this.currentSearchItem.id).on('child_added', snap => {    
+                    console.log("ref snap.val():",snap.val())
                     let image = snap.val()
                     image['id'] = snap.key               
-                    this.images.push(image)
+                    this.imageCards.push(image)
                     // this.$nextTick( () => {
                     //     $('html, body').scrollTop($(document).height())
                     // })

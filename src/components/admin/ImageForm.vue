@@ -1,5 +1,10 @@
 <template>
   <div class="imageform_container">
+  	<div class="extra">
+        <button class="ui circular icon right floated button" @click="logout">
+            <i class="icon sign out"></i>
+        </button>
+    </div>
   	<div class="addnewImgDiv">
 		<h3>Add a photo</h3>
 	</div>
@@ -47,6 +52,7 @@ export default {
 	        imageCardRef: firebase.database().ref('imageCard'),
             privateImageCardRef: firebase.database().ref('privateImageCard'),
             searchRef: firebase.database().ref('searchItem'),
+            presenceRef: firebase.database().ref('presence'),
 	        uploadTask: null,
 	        uploadState: null,
 	        firstLoad: true,
@@ -122,6 +128,7 @@ export default {
 			}
 			if(fileUrl != null){
 				imageCard['image'] = fileUrl
+				imageCard['content'] = this.imageCard
 			}else{
 				imageCard['content'] = this.imageCard
 			}
@@ -177,6 +184,12 @@ export default {
 	            this.errors.push(error.message)
 	        })
 	    },
+	    logout () {                
+            this.presenceRef.child(this.currentUser.uid).remove()
+            firebase.auth().signOut()
+            this.$store.dispatch("setUser", null)
+            this.$router.push('/login')
+        },
 	    getPath() {
           	if(this.isPrivate){
             	return 'tchat/private/'+this.currentChannel.id

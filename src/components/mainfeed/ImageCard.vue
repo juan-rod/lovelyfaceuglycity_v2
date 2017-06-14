@@ -17,7 +17,7 @@
 
 	export default {
 		name: 'image-card',
-		props:['image'],
+		props:['imageCard'],
 		computed: {
 			...mapGetters(['currentUser'])
 		},
