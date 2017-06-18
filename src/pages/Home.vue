@@ -20,6 +20,8 @@ export default {
 
 <style scoped>
 	.home_container{
-		height: 100%;
+		height: auto;
+		display: flex;
+    	/*border:1px solid red;*/
 	}
 </style>

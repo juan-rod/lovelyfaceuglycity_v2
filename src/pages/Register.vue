@@ -82,7 +82,6 @@ export default {
 									user.updateProfile({
 										displayName: this.name,
 										photoUrl: null
-										// photoUrl: "https://api.adorable.io/avatars/285/abott@adorable.png"
 
 									}).then ( () => {
 										this.saveUserToUsersRef(user).then( () =>{

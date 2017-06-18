@@ -1,14 +1,8 @@
 <template>
-    <div class="imageFeed_container">
-        <div class="imageFeed_content">
-            <h2>month</h2>
-            <div class="imageFeed">
-                <transition-group tag="div" name="list">
-                    <image-card :imageCard="imageCard" v-for="imageCard in imageCards" :key="imageCard.id"></image-card>
-                </transition-group>
-            </div>
-        </div>
-
+    <div class="imageFeed_container d-flex justify-content-center">
+        <transition-group tag="div" name="list">
+            <image-card :imageCard="imageCard" v-for="imageCard in imageCards" :key="imageCard.id"></image-card>
+        </transition-group>
     </div>
 </template>
 <script>
@@ -43,6 +37,7 @@
         },
         methods: {
             addListeners () {
+            
                 let ref = this.getImageRef()
                 ref.child(this.currentSearchItem.id).on('child_added', snap => {    
                     console.log("ref snap.val():",snap.val())
@@ -55,6 +50,7 @@
                     
                     
                 })
+                
                 this.addToListeners(this.currentSearchItem.id, ref, 'child_added')
             },
             addToListeners(id, ref, event){
@@ -91,11 +87,13 @@
 <style scoped>
   
     .imageFeed_container{
-       /* position: relative;        
+        border:3px solid black;
         width: 100%;
+        flex:10;
+       /* position: relative;        
         background-color: #2a2a2e; */       
         /*padding: 10px 30px 210px 30px; */
-        margin-left: 200px;
+        /*margin-left: 200px;*/
         /*min-height: 100%;*/
     }
     .messages_container .comments{

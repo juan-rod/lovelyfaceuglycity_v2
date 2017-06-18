@@ -20,17 +20,21 @@ export default {
 </script>
 
 <style scoped>
-	.sidebar{
+	/*.sidebar{
 		position: fixed;
 		display: flex;
 		flex: 2;
 		flex-flow:	column nowrap;
-		width: 200px;
+		min-width: 150px;
 		padding: 10px;
 		top: 0;
 		left: 0;
 		bottom: 0;
 		background-color: #eee;
 		padding-top: 110px;
+	}*/
+	.sidebar{
+		flex:2;
+		border:1px solid yellow;
 	}
 </style>

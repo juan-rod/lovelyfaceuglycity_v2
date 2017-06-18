@@ -67,7 +67,6 @@ export default {
 	},
 	 mounted () {
     	this.addListeners()
-        // this.addSearchItem()
     },
 	methods: {
 		addListeners () {

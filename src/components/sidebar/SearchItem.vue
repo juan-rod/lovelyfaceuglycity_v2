@@ -157,7 +157,7 @@
         height: 30px;
         margin: 8px;
         list-style: none;
-        background-color: #ca67ff;
+        /*background-color: #ca67ff;*/
         cursor: pointer;
         line-height: 30px;       
         border-radius: 2px;

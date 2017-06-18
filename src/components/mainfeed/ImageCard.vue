@@ -1,12 +1,14 @@
 <template>
-	<div class="imageCard_container">
-		<div class="imageCard_content">
-			<div class="metadata">
-                <span class="date imageCard_date"> {{ imageCard.timestamp | fromNow }}</span>
+	<div class="imageCard_container col">
+		<div class="imageCard_content row">
+            <div class="text col-8">
+            	<img class="ui image imageCard_image" :src="imageCard.image" alt="image">
             </div>
-            <div class="text">{{ imageCard.content }}</div>
+			<div class="metadata col-4">
+                <span class="date imageCard_date"> {{ imageCard.timestamp | fromNow }}</span>
+            	{{ imageCard.content }}
+            </div>
 
-            <img class="ui image imageCard_image" :src="imageCard.image" alt="image">
 		</div>
 		<!-- <div v-for="imageCard in imageCards"> 
                     {{imageCard}}
@@ -44,5 +46,10 @@
 </script>
 
 <style scoped>
-
+	.imageCard_container{
+		border:1px dotted black;
+	}
+	.imageCard_content{
+		border:1px dotted red;
+	}
 </style>

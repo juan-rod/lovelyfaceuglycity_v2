@@ -23,11 +23,11 @@ const routes = [
 		component: Register
 	},
 	{
-		path: '/home',
+		path: '/',
 		component: Home
 	},
 	{
-		path: '/',
+		path: '/admin',
 		component: Admin,
 		beforeEnter: (to, from, next) => {
 			if(!firebase.auth().currentUser){
