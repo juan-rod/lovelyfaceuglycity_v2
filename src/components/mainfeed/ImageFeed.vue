@@ -1,5 +1,5 @@
 <template>
-    <div class="imageFeed_container d-flex justify-content-center">
+    <div class="imageFeed_container">
         <transition-group tag="div" name="list">
             <image-card :imageCard="imageCard" v-for="imageCard in imageCards" :key="imageCard.id"></image-card>
         </transition-group>
