@@ -14,6 +14,8 @@ const mutations = {
 		state.currentUser = user
 	},
 	SET_CURRENT_SEARCHITEM(state, searchItem) {
+		console.log("mutations state:", state)
+		console.log("mutations searchItem:", searchItem)
 		state.currentSearchItem = searchItem
 	},
 	SET_PRIVATE(state, isPrivate) {
@@ -26,6 +28,7 @@ const actions = {
 		commit("SET_USER", user)
 	},
 	setCurrentSearchItem({commit}, searchItem){
+		console.log("actions searchItem:", searchItem)
 		commit("SET_CURRENT_SEARCHITEM", searchItem)
 	},
 	setPrivate({commit}, isPrivate){

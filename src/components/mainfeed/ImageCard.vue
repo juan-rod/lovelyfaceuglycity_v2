@@ -4,10 +4,18 @@
 			<div class="metadata">
                 <span class="date imageCard_date"> {{ imageCard.timestamp | fromNow }}</span>
             </div>
-            <div class="text" v-if="!isFile(imageCard)">{{ imageCard.content }}</div>
+            <div class="text">{{ imageCard.content }}</div>
 
-            <img class="ui image imageCard_image" :src="imageCard.image" alt="image" v-else>
+            <img class="ui image imageCard_image" :src="imageCard.image" alt="image">
 		</div>
+		<!-- <div v-for="imageCard in imageCards"> 
+                    {{imageCard}}
+                    <p>{{imageCard.content.title}}</p> 
+                    <p>{{imageCard.content.location}}</p> 
+                    <p>{{imageCard.content.desc}}</p> 
+                    <p>{{imageCard.user.name}}</p> 
+                    <img :src="imageCard.image">
+                </div> -->
 	</div>
 </template>
 
@@ -23,6 +31,9 @@
 		},
 		methods: {
 
+            isFile(message){
+                return message.content == null && message.image != null
+            }
 		},
 		filters: {
 			fromNow (value) {

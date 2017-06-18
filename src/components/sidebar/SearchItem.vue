@@ -63,17 +63,6 @@
 			return {
 				searchItem:[
                     // {id: uuidV4(), name: moment().month(0).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(1).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(2).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(3).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(4).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(5).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(6).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(7).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(8).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(9).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(10).format('MMM') },
-                    // {id: uuidV4(), name: moment().month(11).format('MMM') }
                 ],
 				new_searchItem: '',
 				searchRef: firebase.database().ref('searchItem'),
@@ -92,46 +81,46 @@
             }
         },
         mounted () {
-        	// this.addListeners()
+        	this.addListeners()
             // this.addSearchItem()
         },
         methods: {
-        	// addListeners () {
-         //        this.searchRef.on('child_added', snap => {
-         //            console.log("snap:",snap);
-        	// 		this.searchItem.push(snap.val())
-         //            let monthName = snap.val().name
-         //            let searchMonth = moment().month(this.thisMonth).format('MMM')
-         //            if(searchMonth !== monthName){
-         //                this.addSearchItem()
-         //            }
+            addListeners () {
+                this.searchRef.on('child_added', snap => {
+                console.log("snap:",snap);
+                this.searchItem.push(snap.val())
+                let monthName = snap.val().name
+                let searchMonth = moment().month(this.thisMonth).format('MMM')
+                if(searchMonth !== monthName){
+                    this.addSearchItem()
+                }
 
-         //            if(this.firstLoad && this.searchItem.length > 0){
-         //                console.log("this.searchItem[0]:",this.searchItem[0])
-         //                this.$store.dispatch("setCurrentSearchItem", this.searchItem[0])
-         //                this.search = this.searchItem[0]
-         //                console.log("this.search:",this.search);
-         //            }
-         //            this.firstLoad = false
-         //        })
-         //    },
+                if(this.firstLoad && this.searchItem.length > 0){
+                    console.log("this.searchItem[0]:",this.searchItem[0])
+                    this.$store.dispatch("setCurrentSearchItem", this.searchItem[0])
+                    this.search = this.searchItem[0]
+                    console.log("this.search:",this.search);
+                }
+                this.firstLoad = false
+            })
+        },
+        addSearchItem () {
+            // this.errors = []
+            let key = this.searchRef.push().key
+            let newSearchItem = { id: key, name: searchMonth}
+            console.log("newSearchItem:",newSearchItem);
+            this.searchRef.child(key).update(newSearchItem).then( () => {
+                // this.new_searchItem = ''
+                // $("#searchItemModal").modal('hide')                 
+            }).catch( error => {
+                this.errors.push(error.message)
+            })
+                
+            
+        },
             openSearchModal () {
                 $("#searchItemModal").modal('show')
             },
-            // addSearchItem () {
-            //     this.errors = []
-            //     let key = this.searchRef.push().key
-            //     let newSearchItem = { id: key, name: searchMonth}
-            //     console.log("newSearchItem:",newSearchItem);
-            //     this.searchRef.child(key).update(newSearchItem).then( () => {
-            //         // this.new_searchItem = ''
-            //         // $("#searchItemModal").modal('hide')                 
-            //     }).catch( error => {
-            //         this.errors.push(error.message)
-            //     })
-                    
-                
-            // },
             changeSearchItem(search){   
                 // this.resetNotifications()                          
                 this.$store.dispatch('setPrivate', false)

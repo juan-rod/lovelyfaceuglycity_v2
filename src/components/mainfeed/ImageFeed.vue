@@ -23,7 +23,8 @@
                 privateImageCardRef: firebase.database().ref('privateImageCard'),
                 searchRef: firebase.database().ref('searchItem'),
                 imageCards: [],
-                listeners: []
+                listeners: [],
+                searchItemIds: []
 
             }
         },
@@ -37,24 +38,20 @@
             }
 
         },
-        // mounted () {
-        //     this.addListeners()
-        // },
+        mounted () {
+            this.addListeners()
+        },
         methods: {
             addListeners () {
-                // this.searchRef.on('child_added', snap => {
-                //     console.log(" sesnap.val():",snap.val())
-                    
-                // })
                 let ref = this.getImageRef()
                 ref.child(this.currentSearchItem.id).on('child_added', snap => {    
                     console.log("ref snap.val():",snap.val())
                     let image = snap.val()
                     image['id'] = snap.key               
                     this.imageCards.push(image)
-                    // this.$nextTick( () => {
-                    //     $('html, body').scrollTop($(document).height())
-                    // })
+                    this.$nextTick( () => {
+                        $('html, body').scrollTop($(document).height())
+                    })
                     
                     
                 })

@@ -129,6 +129,7 @@ export default {
 			if(fileUrl != null){
 				imageCard['image'] = fileUrl
 				imageCard['content'] = this.imageCard
+				imageCard['id'] = this.search.id
 			}else{
 				imageCard['content'] = this.imageCard
 			}
