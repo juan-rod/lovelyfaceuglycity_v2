@@ -4,6 +4,9 @@
         <button class="ui circular icon right floated button" @click="logout">
             <i class="icon sign out"></i>
         </button>
+        <router-link class="ui circular icon right floated button" to="/">
+            <i class="icon hand peace"></i>
+        </router-link>
     </div>
   	<div class="addnewImgDiv">
 		<h3>Add a photo</h3>

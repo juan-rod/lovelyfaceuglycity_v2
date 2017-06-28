@@ -36,5 +36,6 @@ export default {
 	.sidebar{
 		flex:2;
 		border:1px solid yellow;
+		display:none;
 	}
 </style>

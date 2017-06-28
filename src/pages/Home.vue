@@ -11,6 +11,7 @@ import ImageFeed from "../components/mainfeed/ImageFeed.vue";
 export default {
 	name: 'home',
 	components: {Sidebar, ImageFeed},
+	// components: {ImageFeed},
 	data () {
 		return {
 		}

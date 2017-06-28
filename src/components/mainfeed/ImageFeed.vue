@@ -87,7 +87,7 @@
 <style scoped>
   
     .imageFeed_container{
-        border:3px solid black;
+        /*border:3px solid black;*/
         width: 100%;
         flex:10;
        /* position: relative;        
