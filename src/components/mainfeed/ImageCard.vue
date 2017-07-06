@@ -56,4 +56,7 @@
 	    padding: 0 4%;
 	    font-family: 'Roboto', sans-serif;
 	}
+	.image-card img {
+		width: 100%;
+	}
 </style>

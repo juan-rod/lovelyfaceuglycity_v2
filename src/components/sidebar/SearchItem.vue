@@ -87,12 +87,13 @@
         methods: {
             addListeners () {
                 this.searchRef.on('child_added', snap => {
-                console.log("snap:",snap);
+                console.log("snap in searchItem:",snap.val());
                 this.searchItem.push(snap.val())
                 let monthName = snap.val().name
                 let searchMonth = moment().month(this.thisMonth).format('MMM')
                 if(searchMonth !== monthName){
-                    this.addSearchItem()
+                    console.log("hello")
+                    this.addSearchItem(searchMonth)
                 }
 
                 if(this.firstLoad && this.searchItem.length > 0){
@@ -104,10 +105,11 @@
                 this.firstLoad = false
             })
         },
-        addSearchItem () {
+        addSearchItem (searchMonth) {
             // this.errors = []
             let key = this.searchRef.push().key
             let newSearchItem = { id: key, name: searchMonth}
+
             console.log("newSearchItem:",newSearchItem);
             this.searchRef.child(key).update(newSearchItem).then( () => {
                 // this.new_searchItem = ''
