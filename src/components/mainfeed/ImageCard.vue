@@ -6,10 +6,11 @@
 	            	<img class="imageCard_image" :src="imageCard.image" alt="image">
 	            </div>
 				<div class="image-details col-12">
+					<div class="image-details-border-top"></div>
 					<h3>{{imageCard.content.title}}</h3> 
-                    <p class="text-muted">{{imageCard.content.desc}}</p> 
-                    <p class="text-muted">{{imageCard.content.location}}</p> 
-	                <span class="date imageCard_date text-muted"> {{ imageCard.timestamp | fromNow }}</span>
+                    <p class="image-details-desc">{{imageCard.content.desc}}</p> 
+                    <p class="image-details-location">{{imageCard.content.location}}</p> 
+	                <span class="date imageCard_date image-details-timestamp"> {{ imageCard.timestamp | fromNow }}</span>
 	            </div>
 			</div>
 		</div>
@@ -56,7 +57,30 @@
 	    padding: 0 4%;
 	    font-family: 'Roboto', sans-serif;
 	}
+	.image-details-border-top{
+		width: 50%;
+	    background-color: #ffa17f;
+	    height: 1px;
+	    position: absolute;
+	    left: 50%;
+	    margin-top: -8px;
+	}
 	.image-card img {
 		width: 80%;
+		-webkit-box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.75);
+-moz-box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.75);
+box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.75);
+
+	}
+	.image-details-desc{
+		color:#f1f1f1;
+	}
+	.image-details-location{
+		color:#f1f1f1;
+
+	}
+	.image-details-timestamp{
+		color:#d6d6d6;
+
 	}
 </style>

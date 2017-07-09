@@ -12,9 +12,9 @@
     	text-align: center;
 	}
 	h1{
-		color: rgb(73, 230, 183);
+		color: rgb(66, 204, 162);
 		font-weight: 900;
 		letter-spacing: 4px;
-		text-shadow: 1px 1px 2px rgb(61, 187, 150);
+		text-shadow: 1px 1px 2px rgb(165,165,165);
 	}
 </style>
