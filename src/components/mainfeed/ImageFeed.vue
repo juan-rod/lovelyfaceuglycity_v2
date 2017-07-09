@@ -1,5 +1,6 @@
 <template>
     <div class="imageFeed_container">
+        <header-nav></header-nav>
         <transition-group tag="div" name="list">
             <image-card :imageCard="imageCard" v-for="imageCard in imageCards" :key="imageCard.id"></image-card>
         </transition-group>
@@ -8,9 +9,10 @@
 <script>
     import ImageCard from './ImageCard.vue'
     import { mapGetters } from 'vuex'
+    import HeaderNav from './Header.vue'
     export default {
         name: 'image-feed',
-        components: {  ImageCard },
+        components: {  ImageCard, HeaderNav },
         data () {
             return {
                 imageCardRef: firebase.database().ref('imageCard'),

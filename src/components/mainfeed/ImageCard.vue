@@ -57,6 +57,6 @@
 	    font-family: 'Roboto', sans-serif;
 	}
 	.image-card img {
-		width: 100%;
+		width: 80%;
 	}
 </style>
