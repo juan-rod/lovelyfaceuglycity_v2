@@ -216,6 +216,13 @@ export default {
 <style scoped>
 	.imageform_container{
 		height: 100vh;    
-		padding: 7% 25%;
+		padding: 7% 10%;
+	}
+	form {
+		margin-top: 10%;
+	}
+	input{
+		height: 50px;
+    	font-size: 25px;
 	}
 </style>
