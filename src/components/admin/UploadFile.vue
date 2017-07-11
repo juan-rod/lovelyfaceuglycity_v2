@@ -16,13 +16,13 @@
         </form>
         <!-- </md-input-container> -->
         <div class="actions">
-            <div class="ui black deny button">
+            <button class="btn btn-warning">
                Cancel
-            </div>
-            <div class="ui right green labeled icon button" @click.prevent="sendFile">
+            </button>
+            <button class="btn btn-primary" @click.prevent="sendFile">
                 Send
                 <i class="checkmark icon"></i>
-            </div>
+            </button>
         </div>
     </div> 
 </template>
@@ -72,5 +72,18 @@
 </script>
 
 <style scoped>
-
+    .actions{
+        margin-top: 5%;
+        text-align: right;
+    }
+    input{
+        height: 50px;
+        font-size: 25px;
+    }
+    button{
+        height: 50px;
+        width: 115px;
+        font-size: 24px;
+        margin: 0 1%;
+    }
 </style>
