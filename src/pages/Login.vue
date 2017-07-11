@@ -84,6 +84,7 @@ export default {
 <style scoped>
 .login__container{
 	margin-top: 40px;
+	height: 100vh;
 }
 .column{
 	max-width:450px;

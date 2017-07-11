@@ -11,25 +11,21 @@
   	<div class="addnewImgDiv">
 		<h3>Add a photo</h3>
 	</div>
-	<md-input-container>
-	    <md-icon>create</md-icon>
-	    <label>Title</label>
-	    <md-input type="text" v-model.trim="imageCard.title"></md-input>
-	</md-input-container>
-	<md-input-container>
-	    <md-icon>view_headline</md-icon>
-	    <label>Description</label>
-	    <md-input type="text" v-model.trim="imageCard.desc"></md-input>
-	</md-input-container>
-	<md-input-container>
-	    <md-icon>label</md-icon>
-	    <label>Location</label>
-	    <md-input type="text" v-model.trim="imageCard.location"></md-input>
-	</md-input-container>
+	<form>
+	  <div class="form-group">
+	    <input type="text" class="form-control" id="title" aria-describedby="Title" placeholder="Title" v-model.trim="imageCard.title">
+	  </div>
+	  <div class="form-group">
+	    <input type="text" class="form-control" id="description" placeholder="Description" v-model.trim="imageCard.desc">
+	  </div>
+	  <div class="form-group">
+	    <input type="text" class="form-control" id="location" placeholder="Location" v-model.trim="imageCard.location">
+	  </div>
+		<upload-file :imageCard="imageCard" ref="upload_file"></upload-file>
+	</form>
 	
-	<upload-file :imageCard="imageCard" ref="upload_file"></upload-file>
+	
 
-	<md-button type="submit" class="md-raised md-primary">Add #{{ imageCards.length }}</md-button>
   </div>
 </template>
 
@@ -219,7 +215,7 @@ export default {
 
 <style scoped>
 	.imageform_container{
-		height: 100%;    
+		height: 100vh;    
 		padding: 7% 25%;
 	}
 </style>
