@@ -23,6 +23,9 @@
 	  </div>
 		<upload-file :imageCard="imageCard" ref="upload_file"></upload-file>
 	</form>
+	<!-- <div class="image__preview">
+		<image-card :imageCard="imageCard" v-for="imageCard in imageCards" :key="imageCard.id"></image-card>
+	</div> -->
 	
 	
 
@@ -30,6 +33,7 @@
 </template>
 
 <script>
+import ImageCard from '../mainfeed/ImageCard.vue'
 import { mapGetters } from 'vuex'
 import UploadFile from './UploadFile.vue'
 import uuidV4 from 'uuid/V4'
@@ -37,7 +41,7 @@ import moment from 'moment'
 
 export default {
 	name: 'image-form',
-	components: { UploadFile },
+	components: { UploadFile, ImageCard },
 	data () {
 		return {
 			imageCard :{

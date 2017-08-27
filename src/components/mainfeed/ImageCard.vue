@@ -42,14 +42,8 @@
 </script>
 
 <style scoped>
-	.imageCard_container{
-		/*border:3px dotted pink;*/
-	}
-	.image-content{
-		/*border:1px dotted red;*/
-	}
+
 	.image-details{
-		/*border:1px dotted red;*/
 		text-align: right;
 		position: relative;
 	    bottom: 87px;

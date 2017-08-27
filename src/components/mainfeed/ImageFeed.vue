@@ -39,7 +39,7 @@
         },
         methods: {
             addListeners () {
-            
+                console.log("imageCards", this.imageCards)
                 let ref = this.getImageRef()
                 ref.child(this.currentSearchItem.id).on('child_added', snap => {    
                     console.log("ref snap.val():",snap.val())
