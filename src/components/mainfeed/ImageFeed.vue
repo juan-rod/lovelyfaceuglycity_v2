@@ -89,14 +89,9 @@
 <style scoped>
   
     .imageFeed_container{
-        /*border:3px solid black;*/
         width: 100%;
         flex:10;
-       /* position: relative;        
-        background-color: #2a2a2e; */       
-        /*padding: 10px 30px 210px 30px; */
-        /*margin-left: 200px;*/
-        /*min-height: 100%;*/
+        height:100%;
     }
     .messages_container .comments{
         font-size: 1.2em;
