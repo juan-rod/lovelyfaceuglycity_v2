@@ -2,7 +2,7 @@
     <div class="imageFeed_container">
         <header-nav></header-nav>
         <transition-group tag="div" name="list">
-            <image-card :imageCard="imageCard" v-for="imageCard in imageCards" :key="imageCard.id"></image-card>
+            <image-card :imageCard="imageCard" v-for="imageCard in reverseImageCards" :key="imageCard.id"></image-card>
         </transition-group>
     </div>
 </template>
@@ -25,7 +25,10 @@
             }
         },
         computed: {
-            ...mapGetters(['currentSearchItem', 'isPrivate', 'currentUser'])
+            ...mapGetters(['currentSearchItem', 'isPrivate', 'currentUser']),
+            reverseImageCards() {
+                return this.imageCards.slice().reverse();
+            }     
         },
         watch: {
             currentSearchItem () {
